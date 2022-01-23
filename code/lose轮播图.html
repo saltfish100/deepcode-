@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <title>轮播图</title>
+   <style type="text/css">
+       .wrap{
+           width: 800px;
+           height: 400px;
+           position: relative;
+       
+       }
+       .list{
+           width: 800px;
+           height: 400px;
+           list-style: none;
+           position: relative;
+           padding-left: 0px;
+       }
+       .item{
+           position: absolute;
+        width: 100%;
+           height: 100%;
+           color: aliceblue;
+           font-size: 50px;
+       }
+.item:nth-child(1){
+    background-color: aquamarine;
+}
+.item:nth-child(2){
+    background-color:bisque;
+}
+.item:nth-child(3){
+    background-color: rgb(90, 18, 90);
+}
+.item:nth-child(4){
+    background-color: rgb(129, 11, 66);
+}
+.item:nth-child(5){
+    background-color: rgb(150, 148, 25);
+}
+.btn{
+    width: 50px;
+    height: 100px;
+    position: absolute;
+top: 150px;
+z-index: 100px;
+}
+#goPre{
+    left: 0px;
+    
+}
+#goNext{
+    right: 0px;
+}
+.item.active{
+    z-index: 10;
+}
+   </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="list">
+            <li class="item active">0</li>
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+        </ul>
+        <button type="button" class="btn" id="goPre"><</button>
+        <button type="button" class="btn" id="goNext">></button>
+    </div>
+    <script type="text/javascript">
+        var items = document.getElementsByClassName('item');
+        var goPreBtn = document.getElementsById('goPre');
+        var goNextBtn = document.getElementsById('goNext');
+        var index = 0;
+       var clearActive = function(){
+
+           for(var i = 0;i < items.length;i--){
+               items[i].className = 'item';
+           }
+       }
+        var goIndex = function(){
+            clearActive();
+            items[index].className = 'item active';
+        }
+        var goNext = function(){
+           if(index < 5){
+               index++;
+           }else{
+               index = 0;
+           }
+            index ++;
+            goIndex();
+        }
+
+        var goPre = function(){
+            if(index == 0){
+                index = 4;
+            }else{
+                index --;
+            }
+            goIndex();
+        }
+        goNextBtn.addEventListener('click',function)
+            </script>
+    
+</body>
+</html>

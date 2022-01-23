@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>轮播图</title>
+    <style>
+       .boximg{
+           width: 1000px;
+           height: 640px;
+       }
+       .box{
+           width: 1000px;
+           height: 640px;
+           position: relative;
+       }
+       .box-img{
+           position: absolute;
+           top: 10px;
+           left: 0;
+           opacity: 0;
+       }
+       .box-img:nth-child(1){
+           opacity: 1;
+       }
+       .box-left{
+           position: absolute;
+           width: 35px;
+           height: 70px;
+           top: 300px;
+           color: #ccc;
+            z-index: 100px;
+           border-radius: 0 5px 5px 0;
+           text-align: center;
+           line-height: 70px;
+           font-size: 27px;
+       }
+       .box-left:hover{
+           background-color: #00000050;
+           color: #fff;
+       }
+       .box-right{
+           position: absolute;
+           width: 35px;
+           height: 70px;
+           right: 0px;
+           color: #ccc;
+           z-index: 100px;
+           border-radius: 0 5px 5px 0;
+           text-align: center;
+           line-height: 70px;
+           font-size: 27px;
+           top: 300px;
+       }
+       .box-right:hover{
+           background-color: #00000050;
+           color: #fff;
+       }
+       .box-zhiding>ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+       }
+       .box-zhiding li{
+           width: 14px;
+           height: 14px;
+           border-radius: 100%;
+           background-color: #ccc;
+           float: left;
+           margin-right: 10px;
+       }
+       .box-zhiding li:hover{
+           background-color: #fff;
+       }
+       .box-zhiding{
+           position: absolute;
+           bottom: 30px;
+           right: 100px;
+       }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box-img active"><img class="boximg" src="1.jpg" ></div>
+        <div class="box-img"><img class="boximg" src="2.jpg" ></div>
+        <div class="box-img"><img class="boximg" src="3.jpg" ></div>
+        <div class="box-img"><img class="boximg" src="4.jpeg" ></div>
+        <div class="box-img"><img class="boximg" src="5.jpg" ></div>
+        <div class="box-img"><img class="boximg" src="6.jpg" ></div>
+        <div class="box-left">&lt;</div>
+        <div class="box-right">&gt;</div>
+        <div class="box-zhiding">
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 获取元素
+        var photos = document.getElementsByClassName('box-img');
+        var left = document.getElementsByClassName('box-left');
+        var right = document.getElementsByClassName('box-right');
+        var index = 0;//index表示第几张图片在展示，第index张图片有active这个类名
+        var clearActive = function(){
+            for(var i = 0;i < photos.length;i++){
+                photos[i].className = 'box-img';
+            }
+        }
+
+        var goIndex = function(){
+            clearActive();
+            photos[index].className = 'box-img active';
+        }
+
+        var goNext = function(){
+            if(index < 5){
+                index++;
+            }else{
+                index = 0;
+            }
+            goIndex();
+        }
+    </script>
+</body>
+</html>

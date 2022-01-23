@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style type="text/css">
+        /* 整体 */
+        .wrap{
+            width: 800px;
+            height: 400px;
+            position: relative;
+        }
+        /* 图片 */
+        .list{
+            width: 800px;
+            height: 400px;
+            list-style: none;
+            position: relative;
+            padding-left: 0px;
+        }
+        .item{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 50px;
+            opacity: 0;
+            transition: all .8s;
+        }
+        .item:nth-child(1){
+            background-color: black;
+        }
+        .item:nth-child(2){
+            background-color: red;
+        }
+        .item:nth-child(3){
+            background-color:goldenrod;
+        }
+        .item:nth-child(4){
+            background-color: green;
+        }
+        .item:nth-child(5){
+            background-color: pink;
+        }
+        /* 按钮 */
+        .btn{
+            width: 50px;
+            height: 100px;
+            position: absolute;
+            top: 150px;
+            z-index: 100;
+        }
+        #goPre{
+            left: 0px;
+        }
+        #goNext{
+            right: 0px;
+        }
+        /* 给谁加上active谁就到最上面 */
+        .item.active{
+            z-index: 10;
+            opacity: 1;
+        }
+        .pointList{
+            padding-left: 0px;
+            list-style: none;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000;
+        }
+        .point{
+            width: 8px;
+            height: 8px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 100%;
+            float: left;
+            margin-right: 14px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;     /*鼠标在圆点那里变成手*/
+        }
+        /* 哪一张图片在展示的时候哪一个圆点变颜色 */
+        .point.active{
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 给整体整个容器 -->
+    <div class="wrap">
+        <!-- 图片的地方 -->
+        <ul class="list">
+            <li class="item active">0</li>
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+        </ul>
+        <!-- 放两按钮 -->
+        <button type="button" class="btn" id="goPre"><</button>
+        <button type="button" class="btn" id="goNext">></button>
+        <!-- 五个圆点按钮 -->
+        <!-- 在标签里面存数据,这样点击圆点才知道点的是第几个图 -->
+        <ul class="pointList">    
+            <li class="point active" data-index = '0'></li>
+            <li class="point" data-index = '1'></li>
+            <li class="point" data-index = '2'></li>
+            <li class="point" data-index = '3'></li>
+            <li class="point" data-index = '4'></li>
+        </ul>
+    </div>
+    
+    <script type="text/javascript">
+            //    获取列表和按钮
+        var items = document.getElementsByClassName('item');//图片
+        var points = document.getElementsByClassName('point') // 获取点
+        var goPreBtn = document.getElementById('goPre')
+        var goNextBtn = document.getElementById('goNext')
+        //制定索引，index表示第几张图片在展示，第index张图片有active这个类名
+        var index = 0;
+        //将所有li中的active清除的方法
+        var clearActive = function(){
+            for(i = 0;i < items.length;i++){
+                items[i].className = 'item';
+            }
+            for(i = 0;i < points.length;i++){
+                points[i].className = 'point';
+            }
+        }
+        //第几个index在展示就让第几个index有active这个类名
+        var goIndex = function(){
+            // 执行前先调用clear函数清除
+            clearActive();
+            console.log(index)
+            points[index].className= 'point active';
+            items[index].className = 'item active';
+        }
+        //去到下一张
+        var goNext = function(){
+            // 最后一张完了之后能去到第一张
+            if(index < 4){
+                index++;
+            }else{
+                index = 0;
+            }
+            index++;
+            goIndex();
+        }
+
+        //点击按钮时去到下一张
+        goNextBtn.addEventListener('click'),function(){
+            goNext();
+        }
+        //实现上一张的功能
+        var goPre = function(){
+            if(index == 0){
+                index = 4;
+            }else{
+                index--;
+            }
+            goIndex();
+        }
+        //点击按钮时去到上一张
+        goPreBtn.addEventListener('click'),function(){
+            goPre();
+        }
+        //点击圆点去到对应的地方
+        for(var i = 0;i < points.length;i++){
+            points[i].addEventListener('click'),function(){
+                var pointIndex = this.getAttribute('data-index');
+               index = pointIndex;
+               goIndex();
+            }
+        }
+
+       
+
+    </script>
+</body>
+</html>
